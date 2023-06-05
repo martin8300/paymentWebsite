@@ -1,0 +1,47 @@
+<html>
+    <title> Payment_website</title>
+    <head>
+        <script src="https://js.stripe.com/v3/"></script>
+
+        <script>
+            function setup() {
+                var stripe = Stripe('pk_test_qblFNYngBkEdjEZ16jxxoWSM');
+                var elements = stripe.elements();
+
+                var style = {
+                    base: {
+                        fontSize: '16px',
+                        color: '#32325d',
+                    },
+                };
+
+                var card = elements.create('card', {style: style});
+                card.mount('#card-element');
+            }
+        </script>
+
+        <style>
+            #payment-form {
+                width: 40vw;
+                margin-top: 20vh;
+                margin-left: 30vw;
+                padding: 2vw;
+                border: 1px lightgrey solid;
+                border-radius: 5px 5px;
+            }
+        </style>
+    </head>
+    <body onload="setup()">
+        <form action="/charge" method="post" id="payment-form">
+            <div class="form-row">
+                <label for="card-element">
+                    Credit or debit card
+                </label>
+                <div id="card-element"></div>
+                <div id="card-errors" role="alert"></div>
+            </div>
+
+            <button>Submit Payment</button>
+        </form>
+    </body>
+</html>
